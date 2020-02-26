@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class playercontroller : MonoBehaviour
 {
     public float speed;
     public Text countText;
     public Text winText;
-    private Rigidbody rb;
+    public Text remainingCount;
 
+    private int countRemaining;
+    private Rigidbody rb;
     private int count;
 
-
-     void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        countRemaining = 12;
         SetCountText();
         winText.text = "";
     }
@@ -28,6 +31,11 @@ public class playercontroller : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         rb.AddForce(movement * speed);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = Vector3.up * (speed * .8f);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -36,6 +44,7 @@ public class playercontroller : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count += 1;
+            countRemaining -= 1;
             SetCountText();
         }
     }
@@ -43,9 +52,18 @@ public class playercontroller : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-        if (count >= 12)
+        remainingCount.text = "Remaining: " + countRemaining.ToString();
+        if (count >= 12 && countRemaining == 0)
         {
             winText.text = "You Win!";
+            Invoke("ChangeScene", 2);
         }
     }
+
+    void ChangeScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
 }
+
