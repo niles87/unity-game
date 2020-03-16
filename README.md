@@ -4,7 +4,9 @@
 
 ### Visuals
 
+<p align="center">
 <img src="images/rollAball.gif">
+</p>
 
 ## Overview
 
