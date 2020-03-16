@@ -1,6 +1,10 @@
-# <p align="center">unity-game</p>
+# <p align="center">Unity Game</p>
 
-**<p align="center">Roll-a-Ball</p>**
+# <p align="center">Roll-a-Ball</p>
+
+### Visuals
+
+<img src="images/rollAball.gif">
 
 ## Overview
 
